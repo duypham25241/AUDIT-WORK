@@ -1,23 +1,121 @@
-BULK INSERT INV_RPT_044_v2_GD2
-FROM 'D:\Downloads\DATA\INV044\INV044 M1.26.csv'
-WITH (
-    FIRSTROW=2,
-    FIELDTERMINATOR=';',
-    ROWTERMINATOR='\n',
-    DATAFILETYPE='char',
-    CODEPAGE = '65001',
-    TABLOCK,
-    MAXERRORS = 1000
-)
-;
-BULK INSERT INV_RPT_044_v2_GD2
-FROM 'D:\Downloads\DATA\INV044\INV044 M2.26 10.02.26.csv'
-WITH (
-    FIRSTROW=2,
-    FIELDTERMINATOR=';',
-    ROWTERMINATOR='\n',
-    DATAFILETYPE='char',
-    CODEPAGE = '65001',
-    TABLOCK,
-    MAXERRORS = 1000
-)
+-- Creatabe
+CREATE TABLE ProvinceSale2 (
+    [Order type] NVARCHAR(MAX),
+    [Mã phòng ban] NVARCHAR(MAX),
+    [Mã KV – Tỉnh] NVARCHAR(MAX),
+    [Mã OU] NVARCHAR(MAX),
+    [Mã OU cửa hàng] NVARCHAR(MAX),
+    [Mã kế toán quản trị] NVARCHAR(MAX),
+    [Ngày xuất bán] DATE,
+    [Mã khách hàng] NVARCHAR(50),
+    [Tên khách hàng] NVARCHAR(255),
+    [Loại khách hàng] NVARCHAR(100),
+    [Phân cấp khách hàng] NVARCHAR(100),
+    [Tên KH vãng lai] NVARCHAR(255),
+    [SĐT KH vãng lai] NVARCHAR(MAX),
+    [Mã kho] NVARCHAR(50),
+    [Mã hàng] NVARCHAR(MAX),
+    [Tên hàng] NVARCHAR(255),
+    [Mã lô] NVARCHAR(100),
+    [Ngày nhập kho] DATE,
+    [Ngày sản xuất] DATE,
+    [Loại hàng] NVARCHAR(MAX),
+    [Hình thức bán] NVARCHAR(MAX),
+    [Hình thức thanh toán] NVARCHAR(MAX),
+    [Mã nhóm hàng] NVARCHAR(100),
+    [Số lượng ĐVT giao dịch] NVARCHAR(20),
+    [Số lượng SL giao dịch] DECIMAL(18,4),
+    [Số lượng ĐVT 1] NVARCHAR(MAX),
+    [Số lượng SL 1] DECIMAL(18,4),
+    [Số lượng ĐVT 2] NVARCHAR(20),
+    [Số lượng SL 2] DECIMAL(18,4),
+    [Đơn giá vốn (Không VAT) Đồng/ ĐVT giao dịch 1] DECIMAL(18,4),
+    [Đơn giá vốn (Không VAT) Đồng/ ĐVT 1_1] DECIMAL(18,4),
+    [Đơn giá vốn (Không VAT) Đồng/ ĐVT giao dịch 2] DECIMAL(18,4),
+    [Đơn giá vốn (Không VAT) Đồng/ ĐVT 1_2] DECIMAL(18,4),
+    [Đơn giá vốn (Không VAT) Đồng/ ĐVT giao dịch 3] DECIMAL(18,4),
+    [Đơn giá vốn (Không VAT) Đồng/ ĐVT 1_3] DECIMAL(18,4),
+    [Thành tiền vốn] DECIMAL(18,2),
+    [Doanh thu] DECIMAL(18,2),
+    [Lãi gộp] DECIMAL(18,2),
+    [Freight Terms] NVARCHAR(100),
+    [Hình thức vận chuyển] NVARCHAR(100),
+    [Chi phí gia công ngoài] DECIMAL(18,2),
+    [Số SO] NVARCHAR(100),
+    [Số POS/WEB] NVARCHAR(100),
+    [Số AR transaction] NVARCHAR(100),
+    [Tax Code] NVARCHAR(MAX),
+    [Tài xế giao hàng] NVARCHAR(100),
+    [Nhân viên phụ trách đơn hàng] NVARCHAR(MAX),
+    [Cửa hàng] NVARCHAR(MAX),
+    [Mã địa] NVARCHAR(MAX),
+    [CS đặc] NVARCHAR(100),
+    [Voucher Hoa Sen] NVARCHAR(MAX),
+    [Voucher NCC] NVARCHAR(MAX),
+    [Loại chi HH] NVARCHAR(MAX),
+    [Mức chi HH] DECIMAL(18,4),
+    [Thành tiền] DECIMAL(18,2),
+    [Số hóa đơn] NVARCHAR(MAX),
+    [Nơi giao hàng] NVARCHAR(255)
+);
+
+-- INSERT INTO ProvinceSale2
+SELECT [ordertype]
+      ,[maphongban]
+      ,[makvtinh]
+      ,[maou]
+      ,[maoucua_hang]
+      ,[make_toan_quan_tri]
+      ,CONVERT(DATE,[ngayxuatban],103) ngayxuatban
+      ,[makhachhang]
+      ,[tenkhachhang]
+      ,[loaikhachhang]
+      ,[phancapkhachhang]
+      ,[tenkhvanglai]
+      ,[sdtkhvanglai]
+      ,[makho]
+      ,[mahang]
+      ,[tenhang]
+      ,[malo]
+      ,CONVERT(DATE,[ngaynhapkho],103) ngaynhapkho
+      ,CONVERT(DATE,[ngaysanxuat],103) ngaysanxuat
+      ,[loaihang]
+      ,[hinhthucban]
+      ,[hinhthucthanhtoan]
+      ,[manhomhang]
+      ,[soluong_dvt_giaodich]
+      ,TRY_CONVERT(decimal,[soluong_sl_giaodich])SLgiaodich
+      ,[soluong_dvt_1]
+      ,TRY_CONVERT(decimal,[soluong_sl_1]) SL1
+      ,[soluong_dvt_2]
+      ,TRY_CONVERT(decimal,[soluong_sl_2]) SL2
+      ,REPLACE(REPLACE(LTRIM(RTRIM([dongiavon_dvt_giaodich])),'.',''),',','.') dongiavon_dvt_giaodich
+      ,REPLACE(REPLACE(LTRIM(RTRIM([dongiavon_dvt_1])),'.',''),',','.') dongiavon_dvt_1
+      ,REPLACE(REPLACE(LTRIM(RTRIM([dongiavon_dvt_giaodich_2])),'.',''),',','.') dongiavon_dvt_giaodich_2
+      ,REPLACE(REPLACE(LTRIM(RTRIM([dongiavon_dvt_1_2])),'.',''),',','.') dongiavon_dvt_2
+      ,REPLACE(REPLACE(LTRIM(RTRIM([dongiavon_dvt_giaodich_3])),'.',''),',','.') dongiavon_dvt_giaodich_3
+      ,REPLACE(REPLACE(LTRIM(RTRIM([dongiavon_dvt_1_3])),'.',''),',','.') dongiavon_dvt_3
+      ,REPLACE(REPLACE(LTRIM(RTRIM([thanhtienvon])),'.',''),',','.') thanhtienvon
+      ,REPLACE(REPLACE(LTRIM(RTRIM([doanhthu])),'.',''),',','.') doanhthu
+      ,REPLACE(REPLACE(LTRIM(RTRIM([laigop])),'.',''),',','.') laigop
+      ,[freightterms]
+      ,[hinhthucvanchuyen]
+      ,REPLACE(REPLACE(LTRIM(RTRIM([chiphi_giacongngoai])),'.',''),',','.') chiphi_giacongngoai
+      ,[soso]
+      ,[sopos_web]
+      ,[soar_transaction]
+      ,[taxcode]
+      ,[taixegiaohang]
+      ,[nhanvienphutrach]
+      ,[cuahang]
+      ,[madia]
+      ,[csdac]
+      ,[voucherhoasen]
+      ,[voucherncc]
+      ,[loaichihh]
+      ,REPLACE(REPLACE(LTRIM(RTRIM([mucchihh])),'.',''),',','.') mucchihh
+      ,REPLACE(REPLACE(LTRIM(RTRIM([thanhtien])),'.',''),',','.') thanhtien
+      ,[sohoadon]
+      ,[noigiaohang]
+  FROM [HSG].[dbo].[ProvinceSale]
+  
