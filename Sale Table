@@ -1,5 +1,5 @@
 -- Create Stagting table
-CREATE TABLE ProvinceSale (
+CREATE TABLE ProvinceSale_raw (
     order_type NVARCHAR(MAX),
     department_code NVARCHAR(MAX),
     region_province_code NVARCHAR(MAX),
@@ -58,124 +58,305 @@ CREATE TABLE ProvinceSale (
     invoice_no NVARCHAR(MAX),
     delivery_address NVARCHAR(MAX)
 );
--- Creatabe
-CREATE TABLE ProvinceSale2 (
-    [Order type] NVARCHAR(MAX),
-    [Mã phòng ban] NVARCHAR(MAX),
-    [Mã KV – Tỉnh] NVARCHAR(MAX),
-    [Mã OU] NVARCHAR(MAX),
-    [Mã OU cửa hàng] NVARCHAR(MAX),
-    [Mã kế toán quản trị] NVARCHAR(MAX),
-    [Ngày xuất bán] DATE,
-    [Mã khách hàng] NVARCHAR(50),
-    [Tên khách hàng] NVARCHAR(255),
-    [Loại khách hàng] NVARCHAR(100),
-    [Phân cấp khách hàng] NVARCHAR(100),
-    [Tên KH vãng lai] NVARCHAR(255),
-    [SĐT KH vãng lai] NVARCHAR(MAX),
-    [Mã kho] NVARCHAR(50),
-    [Mã hàng] NVARCHAR(MAX),
-    [Tên hàng] NVARCHAR(255),
-    [Mã lô] NVARCHAR(100),
-    [Ngày nhập kho] DATE,
-    [Ngày sản xuất] DATE,
-    [Loại hàng] NVARCHAR(MAX),
-    [Hình thức bán] NVARCHAR(MAX),
-    [Hình thức thanh toán] NVARCHAR(MAX),
-    [Mã nhóm hàng] NVARCHAR(100),
-    [Số lượng ĐVT giao dịch] NVARCHAR(20),
-    [Số lượng SL giao dịch] DECIMAL(18,4),
-    [Số lượng ĐVT 1] NVARCHAR(MAX),
-    [Số lượng SL 1] DECIMAL(18,4),
-    [Số lượng ĐVT 2] NVARCHAR(20),
-    [Số lượng SL 2] DECIMAL(18,4),
-    [Đơn giá vốn (Không VAT) Đồng/ ĐVT giao dịch 1] DECIMAL(18,4),
-    [Đơn giá vốn (Không VAT) Đồng/ ĐVT 1_1] DECIMAL(18,4),
-    [Đơn giá vốn (Không VAT) Đồng/ ĐVT giao dịch 2] DECIMAL(18,4),
-    [Đơn giá vốn (Không VAT) Đồng/ ĐVT 1_2] DECIMAL(18,4),
-    [Đơn giá vốn (Không VAT) Đồng/ ĐVT giao dịch 3] DECIMAL(18,4),
-    [Đơn giá vốn (Không VAT) Đồng/ ĐVT 1_3] DECIMAL(18,4),
-    [Thành tiền vốn] DECIMAL(18,2),
-    [Doanh thu] DECIMAL(18,2),
-    [Lãi gộp] DECIMAL(18,2),
-    [Freight Terms] NVARCHAR(100),
-    [Hình thức vận chuyển] NVARCHAR(100),
-    [Chi phí gia công ngoài] DECIMAL(18,2),
-    [Số SO] NVARCHAR(100),
-    [Số POS/WEB] NVARCHAR(100),
-    [Số AR transaction] NVARCHAR(100),
-    [Tax Code] NVARCHAR(MAX),
-    [Tài xế giao hàng] NVARCHAR(100),
-    [Nhân viên phụ trách đơn hàng] NVARCHAR(MAX),
-    [Cửa hàng] NVARCHAR(MAX),
-    [Mã địa] NVARCHAR(MAX),
-    [CS đặc] NVARCHAR(100),
-    [Voucher Hoa Sen] NVARCHAR(MAX),
-    [Voucher NCC] NVARCHAR(MAX),
-    [Loại chi HH] NVARCHAR(MAX),
-    [Mức chi HH] DECIMAL(18,4),
-    [Thành tiền] DECIMAL(18,2),
-    [Số hóa đơn] NVARCHAR(MAX),
-    [Nơi giao hàng] NVARCHAR(255)
+
+--LOAD DATA INTO RAW TABLE
+-- M1.25
+BULK INSERT ProvinceSale_draw
+FROM 'D:\Downloads\DATA\OM157\2025.M1.csv'
+WITH (
+    FIRSTROW=2,
+    FIELDTERMINATOR=';',
+    ROWTERMINATOR='\n',
+    DATAFILETYPE='char',
+    CODEPAGE = '65001',
+    TABLOCK,
+    MAXERRORS = 1000
+);
+-- M2.25
+BULK INSERT ProvinceSale_draw
+FROM 'D:\Downloads\DATA\OM157\2025.M2.csv'
+WITH (
+    FIRSTROW=2,
+    FIELDTERMINATOR=';',
+    ROWTERMINATOR='\n',
+    DATAFILETYPE='char',
+    CODEPAGE = '65001',
+    TABLOCK,
+    MAXERRORS = 1000
+);
+--M3.25
+BULK INSERT ProvinceSale_draw
+FROM 'D:\Downloads\DATA\OM157\2025.M3.csv'
+WITH (
+    FIRSTROW=2,
+    FIELDTERMINATOR=';',
+    ROWTERMINATOR='\n',
+    DATAFILETYPE='char',
+    CODEPAGE = '65001',
+    TABLOCK,
+    MAXERRORS = 1000
+);
+--M4.25
+BULK INSERT ProvinceSale_draw
+FROM 'D:\Downloads\DATA\OM157\2025.M4.csv'
+WITH (
+    FIRSTROW=2,
+    FIELDTERMINATOR=';',
+    ROWTERMINATOR='\n',
+    DATAFILETYPE='char',
+    CODEPAGE = '65001',
+    TABLOCK,
+    MAXERRORS = 1000
+);
+--M5.25
+BULK INSERT ProvinceSale_draw
+FROM 'D:\Downloads\DATA\OM157\2025.M5.csv'
+WITH (
+    FIRSTROW=2,
+    FIELDTERMINATOR=';',
+    ROWTERMINATOR='\n',
+    DATAFILETYPE='char',
+    CODEPAGE = '65001',
+    TABLOCK,
+    MAXERRORS = 1000
+);
+--M6.25
+BULK INSERT ProvinceSale_draw
+FROM 'D:\Downloads\DATA\OM157\2025.M6.csv'
+WITH (
+    FIRSTROW=2,
+    FIELDTERMINATOR=';',
+    ROWTERMINATOR='\n',
+    DATAFILETYPE='char',
+    CODEPAGE = '65001',
+    TABLOCK,
+    MAXERRORS = 1000
+);
+--M7.25
+BULK INSERT ProvinceSale_draw
+FROM 'D:\Downloads\DATA\OM157\2025.M7.csv'
+WITH (
+    FIRSTROW=2,
+    FIELDTERMINATOR=';',
+    ROWTERMINATOR='\n',
+    DATAFILETYPE='char',
+    CODEPAGE = '65001',
+    TABLOCK,
+    MAXERRORS = 1000
+);
+--M8.25
+BULK INSERT ProvinceSale_draw
+FROM 'D:\Downloads\DATA\OM157\2025.M8.csv'
+WITH (
+    FIRSTROW=2,
+    FIELDTERMINATOR=';',
+    ROWTERMINATOR='\n',
+    DATAFILETYPE='char',
+    CODEPAGE = '65001',
+    TABLOCK,
+    MAXERRORS = 1000
+);
+--M9.25
+BULK INSERT ProvinceSale_draw
+FROM 'D:\Downloads\DATA\OM157\2025.M9.csv'
+WITH (
+    FIRSTROW=2,
+    FIELDTERMINATOR=';',
+    ROWTERMINATOR='\n',
+    DATAFILETYPE='char',
+    CODEPAGE = '65001',
+    TABLOCK,
+    MAXERRORS = 1000
+);
+--M10.25
+BULK INSERT ProvinceSale_draw
+FROM 'D:\Downloads\DATA\OM157\2025.M10.csv'
+WITH (
+    FIRSTROW=2,
+    FIELDTERMINATOR=';',
+    ROWTERMINATOR='\n',
+    DATAFILETYPE='char',
+    CODEPAGE = '65001',
+    TABLOCK,
+    MAXERRORS = 1000
+);
+--M11.25
+BULK INSERT ProvinceSale_draw
+FROM 'D:\Downloads\DATA\OM157\2025.M11.csv'
+WITH (
+    FIRSTROW=2,
+    FIELDTERMINATOR=';',
+    ROWTERMINATOR='\n',
+    DATAFILETYPE='char',
+    CODEPAGE = '65001',
+    TABLOCK,
+    MAXERRORS = 1000
+);
+--M12.25
+BULK INSERT ProvinceSale_draw
+FROM 'D:\Downloads\DATA\OM157\2025.M12.csv'
+WITH (
+    FIRSTROW=2,
+    FIELDTERMINATOR=';',
+    ROWTERMINATOR='\n',
+    DATAFILETYPE='char',
+    CODEPAGE = '65001',
+    TABLOCK,
+    MAXERRORS = 1000
+);
+--M1.26
+BULK INSERT ProvinceSale_draw
+FROM 'D:\Downloads\DATA\OM157\2026.M1.csv'
+WITH (
+    FIRSTROW=2,
+    FIELDTERMINATOR=';',
+    ROWTERMINATOR='\n',
+    DATAFILETYPE='char',
+    CODEPAGE = '65001',
+    TABLOCK,
+    MAXERRORS = 1000
 );
 
--- INSERT INTO ProvinceSale2
-SELECT [ordertype]
-      ,[maphongban]
-      ,[makvtinh]
-      ,[maou]
-      ,[maoucua_hang]
-      ,[make_toan_quan_tri]
-      ,CONVERT(DATE,[ngayxuatban],103) ngayxuatban
-      ,[makhachhang]
-      ,[tenkhachhang]
-      ,[loaikhachhang]
-      ,[phancapkhachhang]
-      ,[tenkhvanglai]
-      ,[sdtkhvanglai]
-      ,[makho]
-      ,[mahang]
-      ,[tenhang]
-      ,[malo]
-      ,CONVERT(DATE,[ngaynhapkho],103) ngaynhapkho
-      ,CONVERT(DATE,[ngaysanxuat],103) ngaysanxuat
-      ,[loaihang]
-      ,[hinhthucban]
-      ,[hinhthucthanhtoan]
-      ,[manhomhang]
-      ,[soluong_dvt_giaodich]
-      ,TRY_CONVERT(decimal,[soluong_sl_giaodich])SLgiaodich
-      ,[soluong_dvt_1]
-      ,TRY_CONVERT(decimal,[soluong_sl_1]) SL1
-      ,[soluong_dvt_2]
-      ,TRY_CONVERT(decimal,[soluong_sl_2]) SL2
-      ,REPLACE(REPLACE(LTRIM(RTRIM([dongiavon_dvt_giaodich])),'.',''),',','.') dongiavon_dvt_giaodich
-      ,REPLACE(REPLACE(LTRIM(RTRIM([dongiavon_dvt_1])),'.',''),',','.') dongiavon_dvt_1
-      ,REPLACE(REPLACE(LTRIM(RTRIM([dongiavon_dvt_giaodich_2])),'.',''),',','.') dongiavon_dvt_giaodich_2
-      ,REPLACE(REPLACE(LTRIM(RTRIM([dongiavon_dvt_1_2])),'.',''),',','.') dongiavon_dvt_2
-      ,REPLACE(REPLACE(LTRIM(RTRIM([dongiavon_dvt_giaodich_3])),'.',''),',','.') dongiavon_dvt_giaodich_3
-      ,REPLACE(REPLACE(LTRIM(RTRIM([dongiavon_dvt_1_3])),'.',''),',','.') dongiavon_dvt_3
-      ,REPLACE(REPLACE(LTRIM(RTRIM([thanhtienvon])),'.',''),',','.') thanhtienvon
-      ,REPLACE(REPLACE(LTRIM(RTRIM([doanhthu])),'.',''),',','.') doanhthu
-      ,REPLACE(REPLACE(LTRIM(RTRIM([laigop])),'.',''),',','.') laigop
-      ,[freightterms]
-      ,[hinhthucvanchuyen]
-      ,REPLACE(REPLACE(LTRIM(RTRIM([chiphi_giacongngoai])),'.',''),',','.') chiphi_giacongngoai
-      ,[soso]
-      ,[sopos_web]
-      ,[soar_transaction]
-      ,[taxcode]
-      ,[taixegiaohang]
-      ,[nhanvienphutrach]
-      ,[cuahang]
-      ,[madia]
-      ,[csdac]
-      ,[voucherhoasen]
-      ,[voucherncc]
-      ,[loaichihh]
-      ,REPLACE(REPLACE(LTRIM(RTRIM([mucchihh])),'.',''),',','.') mucchihh
-      ,REPLACE(REPLACE(LTRIM(RTRIM([thanhtien])),'.',''),',','.') thanhtien
-      ,[sohoadon]
-      ,[noigiaohang]
-  FROM [HSG].[dbo].[ProvinceSale]
-  
+--CREATE MAIN TABLE
+CREATE TABLE ProvinceSale_Clean (
+order_type NVARCHAR(MAX),
+department_code NVARCHAR(MAX),
+region_province_code NVARCHAR(MAX),
+ou_code NVARCHAR(MAX),
+store_ou_code NVARCHAR(MAX),
+management_account_code NVARCHAR(MAX),
+ngayxuatban DATE,
+customer_code NVARCHAR(MAX),
+customer_name NVARCHAR(MAX),
+customer_type NVARCHAR(MAX),
+customer_segment NVARCHAR(MAX),
+walkin_customer_name NVARCHAR(MAX),
+walkin_customer_phone NVARCHAR(MAX),
+warehouse_code NVARCHAR(MAX),
+item_code NVARCHAR(MAX),
+item_name NVARCHAR(MAX),
+lot_number NVARCHAR(MAX),
+ngaynhapkho DATE,
+ngaysanxuat DATE,
+item_type NVARCHAR(MAX),
+sales_channel NVARCHAR(MAX),
+payment_method NVARCHAR(MAX),
+product_group_code NVARCHAR(MAX),
+transaction_uom NVARCHAR(MAX),
+SLgiaodich DECIMAL(18,2),
+uom_level1 NVARCHAR(MAX),
+SL1 DECIMAL(18,2),
+uom_level2 NVARCHAR(MAX),
+SL2 DECIMAL(18,2),
+cost_price_trans_uom1 DECIMAL(18,2),
+cost_price_uom1 DECIMAL(18,2),
+cost_price_trans_uom2 DECIMAL(18,2),
+cost_price_uom2 DECIMAL(18,2),
+cost_price_trans_uom3 DECIMAL(18,2),
+cost_price_uom3 DECIMAL(18,2),
+total_cost DECIMAL(18,2),
+revenue DECIMAL(18,2),
+gross_profit DECIMAL(18,2),
+freight_terms NVARCHAR(MAX),
+shipping_method NVARCHAR(MAX),
+chiphi_giacongngoai DECIMAL(18,2),
+sales_order_no NVARCHAR(MAX),
+pos_web_no NVARCHAR(MAX),
+ar_transaction_no NVARCHAR(MAX),
+tax_code NVARCHAR(MAX),
+driver_name NVARCHAR(MAX),
+sales_person NVARCHAR(MAX),
+store_name NVARCHAR(MAX),
+location_code NVARCHAR(MAX),
+special_policy NVARCHAR(MAX),
+hoa_sen_voucher NVARCHAR(MAX),
+supplier_voucher NVARCHAR(MAX),
+commission_type NVARCHAR(MAX),
+mucchihh DECIMAL(18,2),
+thanhtien DECIMAL(18,2),
+invoice_no NVARCHAR(MAX),
+delivery_address NVARCHAR(MAX)
+);
+
+
+--TRANSFORM DATA
+SELECT order_type
+      ,department_code
+      ,region_province_code
+      ,ou_code
+      ,store_ou_code
+      ,management_account_code
+      ,TRY_CONVERT(DATE,sale_date,103) sale_date
+      ,customer_code
+      ,customer_name
+      ,customer_type
+      ,customer_segment
+      ,walkin_customer_name
+      ,walkin_customer_phone
+      ,warehouse_code
+      ,item_code
+      ,item_name
+      ,lot_number
+      ,TRY_CONVERT(DATE,warehouse_entry_date,103) warehouse_entry_date
+      ,TRY_CONVERT(DATE,production_date,103) production_date
+      ,item_type
+      ,sales_channel
+      ,payment_method
+      ,product_group_code
+      ,transaction_uom
+      ,TRY_CONVERT(decimal,transaction_qty) transaction_qty
+      ,uom_level1
+      ,TRY_CONVERT(decimal,qty_level1) qty_level1
+      ,uom_level2
+      ,TRY_CONVERT(decimal,qty_level2) qty_level2
+      ,TRY_CONVERT(decimal(18,2),REPLACE(REPLACE(LTRIM(RTRIM(cost_price_trans_uom1)),'.',''),',','.')) AS cost_price_trans_uom1
+      ,TRY_CONVERT(decimal(18,2),REPLACE(REPLACE(LTRIM(RTRIM(cost_price_uom1)),'.',''),',','.')) AS cost_price_uom1
+      ,TRY_CONVERT(decimal(18,2),REPLACE(REPLACE(LTRIM(RTRIM(cost_price_trans_uom2)),'.',''),',','.')) AS cost_price_trans_uom2
+      ,TRY_CONVERT(decimal(18,2),REPLACE(REPLACE(LTRIM(RTRIM(cost_price_uom2)),'.',''),',','.')) AS cost_price_uom2
+      ,TRY_CONVERT(decimal(18,2),REPLACE(REPLACE(LTRIM(RTRIM(cost_price_trans_uom3)),'.',''),',','.')) AS cost_price_trans_uom3
+      ,TRY_CONVERT(decimal(18,2),REPLACE(REPLACE(LTRIM(RTRIM(cost_price_uom3)),'.',''),',','.')) AS cost_price_uom3
+      ,TRY_CONVERT(decimal(18,2),REPLACE(REPLACE(LTRIM(RTRIM(total_cost)),'.',''),',','.')) AS total_cost
+      ,TRY_CONVERT(decimal(18,2),REPLACE(REPLACE(LTRIM(RTRIM(revenue)),'.',''),',','.')) AS revenue
+      ,TRY_CONVERT(decimal(18,2),REPLACE(REPLACE(LTRIM(RTRIM(gross_profit)),'.',''),',','.')) AS gross_profit
+      ,freight_terms
+      ,shipping_method
+      ,REPLACE(REPLACE(LTRIM(RTRIM(outsourcing_cost)),'.',''),',','.') outsourcing_cost
+      ,sales_order_no
+      ,pos_web_no
+      ,ar_transaction_no
+      ,tax_code
+      ,driver_name
+      ,sales_person
+      ,store_name
+      ,location_code
+      ,special_policy
+      ,hoa_sen_voucher
+      ,supplier_voucher
+      ,commission_type
+      ,REPLACE(REPLACE(LTRIM(RTRIM(commission_rate)),'.',''),',','.') commission_rate
+      ,REPLACE(REPLACE(LTRIM(RTRIM(total_amount)),'.',''),',','.') total_amount
+      ,invoice_no
+      ,delivery_address
+  FROM ProvinceSale
+
+-- INSERT CLEANED DATA INTO MAIN TABLE
+-- CHECK DATA IN TABLE
+  SELECT 
+    COLUMN_NAME,
+    DATA_TYPE,
+    CHARACTER_MAXIMUM_LENGTH,
+    IS_NULLABLE
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'ProvinceSale'
+ORDER BY ORDINAL_POSITION;
+EXEC sp_help 'ProvinceSale'
+SELECT COUNT(*) AS total_rows
+FROM ProvinceSale;
+SELECT
+    COUNT(revenue) AS count_non_null,
+    COUNT(*) - COUNT(revenue) AS null_count,
+    MIN(revenue) AS min_value,
+    MAX(revenue) AS max_value,
+    AVG(revenue) AS avg_value,
+    STDEV(revenue) AS std_dev
+FROM ProvinceSale;
