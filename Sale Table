@@ -280,7 +280,8 @@ delivery_address NVARCHAR(MAX)
 
 
 --TRANSFORM DATA
-SELECT order_type
+WITH ProvinceSale_raw1 AS
+(SELECT order_type
       ,department_code
       ,region_province_code
       ,ou_code
@@ -306,9 +307,9 @@ SELECT order_type
       ,transaction_uom
       ,TRY_CONVERT(decimal,transaction_qty) transaction_qty
       ,uom_level1
-      ,TRY_CONVERT(decimal,qty_level1) qty_level1
+      ,TRY_CONVERT(decimal,qty_level1) SL1
       ,uom_level2
-      ,TRY_CONVERT(decimal,qty_level2) qty_level2
+      ,TRY_CONVERT(decimal,qty_level2) SL2
       ,TRY_CONVERT(decimal(18,2),REPLACE(REPLACE(LTRIM(RTRIM(cost_price_trans_uom1)),'.',''),',','.')) AS cost_price_trans_uom1
       ,TRY_CONVERT(decimal(18,2),REPLACE(REPLACE(LTRIM(RTRIM(cost_price_uom1)),'.',''),',','.')) AS cost_price_uom1
       ,TRY_CONVERT(decimal(18,2),REPLACE(REPLACE(LTRIM(RTRIM(cost_price_trans_uom2)),'.',''),',','.')) AS cost_price_trans_uom2
@@ -337,7 +338,22 @@ SELECT order_type
       ,REPLACE(REPLACE(LTRIM(RTRIM(total_amount)),'.',''),',','.') total_amount
       ,invoice_no
       ,delivery_address
-  FROM ProvinceSale
+  FROM ProvinceSale_raw
+  )
+--- CHECK DATA IN DATA
+SELECT
+    COUNT(revenue) AS count_non_null,
+    COUNT(*) - COUNT(revenue) AS null_count,
+    MIN(revenue) AS min_value,
+    MAX(revenue) AS max_value,
+    AVG(revenue) AS avg_value,
+    STDEV(revenue) AS std_dev
+FROM ProvinceSale_raw1;
+
+SELECT * FROM ProvinceSale_raw1
+---
+
+
 
 -- INSERT CLEANED DATA INTO MAIN TABLE
 -- CHECK DATA IN TABLE
@@ -360,3 +376,4 @@ SELECT
     AVG(revenue) AS avg_value,
     STDEV(revenue) AS std_dev
 FROM ProvinceSale;
+
