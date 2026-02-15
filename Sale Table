@@ -85,7 +85,7 @@ WITH (
     MAXERRORS = 1000
 );
 --M3.25
-BULK INSERT ProvinceSale_draw
+BULK INSERT ProvinceSale_raw
 FROM 'D:\Downloads\DATA\OM157\2025.M3.csv'
 WITH (
     FIRSTROW=2,
@@ -97,7 +97,7 @@ WITH (
     MAXERRORS = 1000
 );
 --M4.25
-BULK INSERT ProvinceSale_draw
+BULK INSERT ProvinceSale_raw
 FROM 'D:\Downloads\DATA\OM157\2025.M4.csv'
 WITH (
     FIRSTROW=2,
@@ -109,7 +109,7 @@ WITH (
     MAXERRORS = 1000
 );
 --M5.25
-BULK INSERT ProvinceSale_draw
+BULK INSERT ProvinceSale_raw
 FROM 'D:\Downloads\DATA\OM157\2025.M5.csv'
 WITH (
     FIRSTROW=2,
@@ -121,7 +121,7 @@ WITH (
     MAXERRORS = 1000
 );
 --M6.25
-BULK INSERT ProvinceSale_draw
+BULK INSERT ProvinceSale_raw
 FROM 'D:\Downloads\DATA\OM157\2025.M6.csv'
 WITH (
     FIRSTROW=2,
@@ -133,7 +133,7 @@ WITH (
     MAXERRORS = 1000
 );
 --M7.25
-BULK INSERT ProvinceSale_draw
+BULK INSERT ProvinceSale_raw
 FROM 'D:\Downloads\DATA\OM157\2025.M7.csv'
 WITH (
     FIRSTROW=2,
@@ -145,7 +145,7 @@ WITH (
     MAXERRORS = 1000
 );
 --M8.25
-BULK INSERT ProvinceSale_draw
+BULK INSERT ProvinceSale_raw
 FROM 'D:\Downloads\DATA\OM157\2025.M8.csv'
 WITH (
     FIRSTROW=2,
@@ -157,7 +157,7 @@ WITH (
     MAXERRORS = 1000
 );
 --M9.25
-BULK INSERT ProvinceSale_draw
+BULK INSERT ProvinceSale_raw
 FROM 'D:\Downloads\DATA\OM157\2025.M9.csv'
 WITH (
     FIRSTROW=2,
@@ -169,7 +169,7 @@ WITH (
     MAXERRORS = 1000
 );
 --M10.25
-BULK INSERT ProvinceSale_draw
+BULK INSERT ProvinceSale_raw
 FROM 'D:\Downloads\DATA\OM157\2025.M10.csv'
 WITH (
     FIRSTROW=2,
@@ -181,7 +181,7 @@ WITH (
     MAXERRORS = 1000
 );
 --M11.25
-BULK INSERT ProvinceSale_draw
+BULK INSERT ProvinceSale_raw
 FROM 'D:\Downloads\DATA\OM157\2025.M11.csv'
 WITH (
     FIRSTROW=2,
@@ -193,7 +193,7 @@ WITH (
     MAXERRORS = 1000
 );
 --M12.25
-BULK INSERT ProvinceSale_draw
+BULK INSERT ProvinceSale_raw
 FROM 'D:\Downloads\DATA\OM157\2025.M12.csv'
 WITH (
     FIRSTROW=2,
@@ -205,7 +205,7 @@ WITH (
     MAXERRORS = 1000
 );
 --M1.26
-BULK INSERT ProvinceSale_draw
+BULK INSERT ProvinceSale_raw
 FROM 'D:\Downloads\DATA\OM157\2026.M1.csv'
 WITH (
     FIRSTROW=2,
@@ -215,67 +215,6 @@ WITH (
     CODEPAGE = '65001',
     TABLOCK,
     MAXERRORS = 1000
-);
-
---CREATE MAIN TABLE
-CREATE TABLE ProvinceSale_Clean (
-order_type NVARCHAR(MAX),
-department_code NVARCHAR(MAX),
-region_province_code NVARCHAR(MAX),
-ou_code NVARCHAR(MAX),
-store_ou_code NVARCHAR(MAX),
-management_account_code NVARCHAR(MAX),
-ngayxuatban DATE,
-customer_code NVARCHAR(MAX),
-customer_name NVARCHAR(MAX),
-customer_type NVARCHAR(MAX),
-customer_segment NVARCHAR(MAX),
-walkin_customer_name NVARCHAR(MAX),
-walkin_customer_phone NVARCHAR(MAX),
-warehouse_code NVARCHAR(MAX),
-item_code NVARCHAR(MAX),
-item_name NVARCHAR(MAX),
-lot_number NVARCHAR(MAX),
-ngaynhapkho DATE,
-ngaysanxuat DATE,
-item_type NVARCHAR(MAX),
-sales_channel NVARCHAR(MAX),
-payment_method NVARCHAR(MAX),
-product_group_code NVARCHAR(MAX),
-transaction_uom NVARCHAR(MAX),
-SLgiaodich DECIMAL(18,2),
-uom_level1 NVARCHAR(MAX),
-SL1 DECIMAL(18,2),
-uom_level2 NVARCHAR(MAX),
-SL2 DECIMAL(18,2),
-cost_price_trans_uom1 DECIMAL(18,2),
-cost_price_uom1 DECIMAL(18,2),
-cost_price_trans_uom2 DECIMAL(18,2),
-cost_price_uom2 DECIMAL(18,2),
-cost_price_trans_uom3 DECIMAL(18,2),
-cost_price_uom3 DECIMAL(18,2),
-total_cost DECIMAL(18,2),
-revenue DECIMAL(18,2),
-gross_profit DECIMAL(18,2),
-freight_terms NVARCHAR(MAX),
-shipping_method NVARCHAR(MAX),
-chiphi_giacongngoai DECIMAL(18,2),
-sales_order_no NVARCHAR(MAX),
-pos_web_no NVARCHAR(MAX),
-ar_transaction_no NVARCHAR(MAX),
-tax_code NVARCHAR(MAX),
-driver_name NVARCHAR(MAX),
-sales_person NVARCHAR(MAX),
-store_name NVARCHAR(MAX),
-location_code NVARCHAR(MAX),
-special_policy NVARCHAR(MAX),
-hoa_sen_voucher NVARCHAR(MAX),
-supplier_voucher NVARCHAR(MAX),
-commission_type NVARCHAR(MAX),
-mucchihh DECIMAL(18,2),
-thanhtien DECIMAL(18,2),
-invoice_no NVARCHAR(MAX),
-delivery_address NVARCHAR(MAX)
 );
 
 
@@ -340,6 +279,70 @@ WITH ProvinceSale_raw1 AS
       ,delivery_address
   FROM ProvinceSale_raw
   )
+
+--CREATE MAIN TABLE
+CREATE TABLE ProvinceSale_Clean (
+	order_type NVARCHAR(255),
+	department_code NVARCHAR(255),
+	region_province_code NVARCHAR(255),
+	ou_code NVARCHAR(255),
+	store_ou_code NVARCHAR(255),
+	management_account_code NVARCHAR(255),
+	sale_date DATE,
+	customer_code NVARCHAR(255),
+	customer_name NVARCHAR(255),
+	customer_type NVARCHAR(255),
+	customer_segment NVARCHAR(255),
+	walkin_customer_name NVARCHAR(255),
+	walkin_customer_phone NVARCHAR(255),
+	warehouse_code NVARCHAR(255),
+	item_code NVARCHAR(255),
+	item_name NVARCHAR(255),
+	lot_number NVARCHAR(255),
+	warehouse_entry_date DATE,
+	production_date DATE,
+	item_type NVARCHAR(255),
+	sales_channel NVARCHAR(MAX),
+	payment_method NVARCHAR(255),
+	product_group_code NVARCHAR(255),
+	transaction_uom NVARCHAR(255),
+	transaction_qty DECIMAL(18,2),
+	uom_level1 NVARCHAR(255),
+	qty_level1 DECIMAL(18,2),
+	uom_level2 NVARCHAR(255),
+	qty_level2 DECIMAL(18,2),
+	cost_price_trans_uom1 DECIMAL(18,2),
+	cost_price_uom1 DECIMAL(18,2),
+	cost_price_trans_uom2 DECIMAL(18,2),
+	cost_price_uom2 DECIMAL(18,2),
+	cost_price_trans_uom3 DECIMAL(18,2),
+	cost_price_uom3 DECIMAL(18,2),
+	total_cost DECIMAL(18,2),
+	revenue DECIMAL(18,2),
+	gross_profit DECIMAL(18,2),
+	freight_terms NVARCHAR(255),
+	shipping_method NVARCHAR(255),
+	outsourcing_cost DECIMAL(18,2),
+	sales_order_no NVARCHAR(255),
+	pos_web_no NVARCHAR(255),
+	ar_transaction_no NVARCHAR(255),
+	tax_code NVARCHAR(255),
+	driver_name NVARCHAR(255),
+	sales_person NVARCHAR(255),
+	store_name NVARCHAR(255),
+	location_code NVARCHAR(255),
+	special_policy NVARCHAR(255),
+	hoa_sen_voucher NVARCHAR(255),
+	supplier_voucher NVARCHAR(255),
+	commission_type NVARCHAR(255),
+	commission_rate DECIMAL(18,2),
+	total_amount DECIMAL(18,2),
+	invoice_no NVARCHAR(255),
+	delivery_address NVARCHAR(255)
+);
+
+
+
 --- CHECK DATA IN DATA
 SELECT
     COUNT(revenue) AS count_non_null,
