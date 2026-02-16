@@ -217,6 +217,37 @@ WITH (
     MAXERRORS = 1000
 );
 
+-- Test after cleaning data
+DECLARE @sql NVARCHAR(MAX) = ''
+SELECT @sql = @sql + '
+SELECT ''' + column_name + ''' AS column_name,
+       COUNT(*) AS error_rows
+FROM ProvinceSale_raw
+WHERE TRY_CONVERT(decimal(18,2),
+      REPLACE(REPLACE(LTRIM(RTRIM([' + column_name + '])), ''.'', ''''), '','', ''.'')) IS NULL
+  AND [' + column_name + '] IS NOT NULL
+UNION ALL'
+FROM (VALUES
+    ('transaction_qty'),
+    ('qty_level1'),
+    ('qty_level2'),
+    ('cost_price_trans_uom1'),
+    ('cost_price_uom1'),
+    ('cost_price_trans_uom2'),
+    ('cost_price_uom2'),
+    ('cost_price_trans_uom3'),
+    ('cost_price_uom3'),
+    ('total_cost'),
+    ('revenue'),
+    ('gross_profit'),
+    ('outsourcing_cost'),
+    ('commission_rate'),
+    ('total_amount')
+) AS cols(column_name)
+
+SET @sql = LEFT(@sql, LEN(@sql) - 9)
+
+EXEC sp_executesql @sql
 
 --TRANSFORM DATA
 WITH ProvinceSale_raw1 AS
